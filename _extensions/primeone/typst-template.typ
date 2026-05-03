@@ -1,6 +1,6 @@
 // =============================================================================
 // PrimeOne Typst Template
-// Copyright (c) 2026 — Simon Eller
+// Copyright (c) 2026 - Simon Eller
 // Licensed under the MIT License — see LICENSE in the repository root:
 // https://github.com/simon-eller/primeone-typst/blob/main/LICENSE
 //
@@ -289,7 +289,7 @@
   let content = {
     if title != none {
       block(
-        below: 7.5pt,
+        below: 0.5em,
         text(
           fill: col,
           size: 1em,
@@ -464,7 +464,7 @@
   )
   set heading(numbering: sectionnumbering)
 
-  show heading.where(level: 1): it => block(above: 1.5em, below: 1em)[
+  show heading.where(level: 1): it => block(above: 2em, below: 1em)[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -473,7 +473,7 @@
     )[#it.body]
   ]
 
-  show heading.where(level: 2): it => block(above: 1.5em, below: 1em)[
+  show heading.where(level: 2): it => block(above: 1.5em, below: 0.875em)[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -482,7 +482,7 @@
     )[#it.body]
   ]
 
-  show heading.where(level: 3): it => block(above: 1.5em, below: 1em)[
+  show heading.where(level: 3): it => block(above: 1.25em, below: 0.75em)[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -560,7 +560,7 @@
     stroke: 0.75pt + pr-border,
     radius: 7.5pt,
     clip: true,
-    inset: (x: 2em, y: 2em),
+    inset: (x: 1em, y: 1em),
   )[
     #text(
       fill: pr-text,
