@@ -450,7 +450,7 @@
   )
 
   set par(
-    justify: true,
+    justify: false,
     leading: 0.65em,
     spacing: 1em
   )
