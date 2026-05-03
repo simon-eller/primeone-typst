@@ -1,20 +1,20 @@
 # PrimeOne Typst Template
-# Copyright (c) 2026 — Simon Eller
+# Copyright (c) 2026 - Simon Eller
 # Licensed under the MIT licence, see LICENSE for details.
-
 
 [package]
 name = "primeone"
 version = "1.0.0"
-entrypoint = "typst-template.typ"
+entrypoint = "lib.typ"
 compiler = "0.14.2"
-authors = ["Simon Eller"]
+authors = ["Simon Eller <https://simon-eller.at>"]
 license = "MIT"
-description = "A clean, modern Quarto/Typst document template with themeable colors and ready-to-use components."
+description = "A modern Typst template bringing themed UI components like cards, badges, and messages to your documents."
 repository = "https://github.com/simon-eller/primeone-typst"
-keywords = ["quarto", "template", "report", "components", "themed"]
+keywords = ["PrimeOne", "themed", "modern", "minimalistic", "prime"]
 categories = ["report"]
 
 [template]
-entrypoint = "typst-template.typ"
+path = "template"
+entrypoint = "main.typ"
 thumbnail = "thumbnail.png"
