@@ -1,5 +1,5 @@
 # PrimeOne Typst Template
-A clean, modern Typst template for [Typst](https://typst.app/) and [Quarto](https://quarto.org/) documents. Designed with a consistent design system, themeable colors, and a rich set of ready-to-use components.
+A clean, modern and component-based article template for Typst, visually inspired by the [PrimeReact](https://github.com/primefaces/primereact) UI framework. This template brings the familiar look and feel of high-quality web UI components to the world of PDF typesetting.
 
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Typst](https://img.shields.io/badge/typst-compatible-orange)
@@ -8,27 +8,25 @@ A clean, modern Typst template for [Typst](https://typst.app/) and [Quarto](http
 ---
 
 ## Features
-- **7 built-in color themes** — cyan, purple, green, blue, teal, indigo, pink
-- **Themeable design system** — all colors are defined as variables and applied consistently
-- **Custom components** — badge, card, panel, message, messages, checkbox
-- **Quarto-native integration** — overrides Quarto's table and Skylighting code block rendering
-- **Automatic title page** — with title, subtitle, authors, date, and abstract
-- **Optional table of contents**
-- **Styled footer** — with author list and page numbers
+- **Component-Driven Design**: Includes built-in functions for UI elements like Cards, Badges, Messages, and Panels.
+- **Multiple Color Themes**: Choose from several PrimeReact "Lara" color palettes (Cyan, Purple, Green, Blue, Teal, Indigo, and Pink).
+- **Responsive Components**: Elements like cards and panels automatically adapt to their content and container width.
+- **Modern Typography**: Uses "Inter" font and "Material Symbols" for icons to ensure a clean, professional look.
+- **Rich Table Layouts**: Custom-styled tables with headers and striped rows that match the UI theme.
 
-## Preview
-> See `template.typ` for a full component showcase with sample content.
+## Setup & Usage
+To use this template in your Typst project, import the `article` function and the components.
 
-## Getting Started
-### Requirements
+### Fonts Requirement
+This template uses the following fonts. Please ensure they are installed on your system:
+- [**Inter**](https://fonts.google.com/specimen/Inter) (Primary text & Headings)
+- [**Material Symbols Rounded Filled**](https://fonts.google.com/download?family=Material%20Symbols%20Rounded) (Icons)
+- **Liberation Mono** (Code blocks)
 
-- [Typst](https://typst.app/) `>= 0.11`
-- [Quarto](https://quarto.org/) `>= 1.4`
-- Fonts: **Inter**, **Liberation Mono**, **Liberation Sans**, **Material Symbols Rounded Filled**
+### Quarto
+You can use the Typst template also in Quarto.
 
-### Installation
-#### Quarto
-1. Clone or download this repository into your Quarto project folder.
+1. Clone or download [the GitHub repository](https://github.com/simon-eller/primeone-typst) into your Quarto project folder.
 2. Reference the template in your `.qmd` file's YAML front matter:
 
 ```yaml
@@ -41,88 +39,46 @@ author:
     email: jane@example.com
 date: today
 format:
-  typst:
-    template: template.typ
+  primeone-typst: default
 ---
 ```
 
 ## Switching Themes
-Open `typst-template.typ` and change the active theme near the top of the file:
+You can change the active color palette by adjusting the `_active-theme` variable in the template or overriding the primary color variables:
 
 ```typst
 // Available themes:
 // theme-lara-cyan | theme-lara-purple | theme-lara-green
 // theme-lara-blue | theme-lara-teal   | theme-lara-indigo | theme-lara-pink
-
-#let _active-theme = theme-lara-pink  // ← change this
 ```
 
 ## Components
 All components are available globally once the template is imported.
 
-### `badge`
-Inline status badge with severity styling.
+### 1. Badges
+Small status indicators with different severities:
+- `badge("Label", severity: "info")` (Options: `info`, `success`, `warning`, `error`, `neutral`)
 
-```typst
-#badge("New", severity: "success")
-#badge("Deprecated", severity: "warning")
-#badge("Error", severity: "error")
-#badge("Info", severity: "info")
-#badge("Neutral", severity: "neutral")
-```
+### 2. Cards
+Versatile containers for content:
+- `card(title: "Title", subtitle: "Subtitle", footer: "Footer content")[Body content]`
 
-### `card`
-Content card with optional title, subtitle, image, and footer.
+### 3. Messages & Alerts
+Inline notifications for highlighting information:
+- `message(severity: "success")[Simple message]`
+- `messages(severity: "error", title: "System Error")[Detailed explanation]`
 
-```typst
-#card(
-  title: "Card Title",
-  subtitle: "Optional subtitle",
-  footer: "Footer text",
-)[
-  Card body content goes here.
-]
-```
+### 4. Panels
+Grouped content sections with a distinct header:
+- `panel(title: "Settings")[Panel content]`
 
-### `panel`
-Simple bordered container with an optional header bar.
+### 5. Checkboxes
+UI-like indicators for lists or options:
+- `checkbox(label: "Completed task", checked: true)`
 
-```typst
-#panel(title: "Panel Title")[
-  Panel content goes here.
-]
-```
-
-### `message`
-Compact inline-style alert with an icon.
-
-```typst
-#message(severity: "info")[This is an informational message.]
-#message(severity: "success")[Operation completed successfully.]
-#message(severity: "warn")[Please review before continuing.]
-#message(severity: "error")[Something went wrong.]
-```
-
-### `messages`
-Full-width alert block with an optional title and left accent bar.
-
-```typst
-#messages(severity: "warn", title: "Warning")[
-  This action cannot be undone.
-]
-```
-
-### `checkbox`
-Static checkbox for use in checklists or forms.
-
-```typst
-#checkbox(label: "Accept terms", checked: true)
-#checkbox(label: "Subscribe to newsletter", checked: false)
-#checkbox(label: "Disabled option", disabled: true)
-```
 
 ## Article Parameters
-The main `article()` function accepts the following parameters via Quarto's YAML front matter:
+The main `article()` function accepts the following parameters:
 
 | Parameter            | Default       | Description                        |
 |----------------------|---------------|------------------------------------|
@@ -152,6 +108,6 @@ The main `article()` function accepts the following parameters via Quarto's YAML
 | `toc_indent`         | `1.5em`       | TOC indentation                    |
 
 ## Attribution
-The color palette, theme naming convention and layout of the components used in this template (e.g. `theme-lara-cyan`, severity colors) are inspired by the [PrimeReact](https://primereact.org/) Lara UI themes, which is developed by [PrimeTek](https://www.primetek.com.tr/) and distributed under the [MIT License](https://github.com/primefaces/primereact/blob/master/LICENSE.md).
+The color palette, theme naming convention and layout of the components used in this template (e.g. `theme-lara-cyan`, severity colors) are inspired by the [PrimeReact](https://github.com/primefaces/primereact) Lara UI themes, which is developed by [PrimeTek](https://www.primetek.com.tr/) and distributed under the [MIT License](https://github.com/primefaces/primereact/blob/master/LICENSE.md).
 
-This template is an independent Typst/Quarto implementation and is not affiliated with, endorsed by, or derived from the PrimeReact source code. Only the visual design language (color values and naming) served as inspiration.
+This template is an independent Typst implementation and is not affiliated with, endorsed by, or derived from the PrimeReact source code. Only the visual design language (color values and naming) served as inspiration.
