@@ -60,7 +60,7 @@
 )
 
 // Set active theme
-#let _active-theme = theme-lara-pink
+#let _active-theme = theme-lara-cyan
 #let pr-primary       = _active-theme.primary
 #let pr-primary-dark  = _active-theme.primary-dark
 #let pr-primary-light = _active-theme.primary-light
@@ -417,6 +417,15 @@
   toc-indent: 1.5em,
   doc,
 ) = {
+  let meta-authors = ()
+  if authors != none {
+    meta-authors = authors.map(a => a.name)
+  }
+
+  set document(
+    title: title,
+    author: meta-authors
+  )
 
   set page(
     paper: paper,
@@ -621,15 +630,23 @@
             fill: pr-text,
             size: 1.25em,
             weight: "semibold"
-          )[#a.name] \
-          #text(
-            fill: pr-text-secondary,
-            size: 1em
-          )[#a.affiliation] \
-          #text(
-            fill: pr-primary,
-            size: 1em
-          )[#a.email]
+          )[#a.name]
+
+          #if a.at("affiliation", default: none) != none and a.affiliation != [] and a.affiliation != "" [
+            #v(0.25em)
+            #text(
+              fill: pr-text-secondary,
+              size: 1em
+            )[#a.affiliation]
+          ]
+
+          #if a.at("email", default: none) != none and a.email != "" [
+            #v(0.25em)
+            #text(
+              fill: pr-primary,
+              size: 1em
+            )[#a.email]
+          ]
         ])
       )
       v(2em)
