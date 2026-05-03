@@ -75,6 +75,18 @@ $endif$
 $if(toc-indent)$
   toc-indent: $toc-indent$,
 $endif$
+$if(titlepage)$
+  titlepage: $titlepage$,
+$endif$
+$if(title-size)$
+  title-size: $title-size$,
+$endif$
+$if(subtitle-size)$
+  subtitle-size: $subtitle-size$,
+$endif$
+$if(heading-size)$
+  heading-size: $heading-size$,
+$endif$
   toc-depth: $toc-depth$,
   cols: $if(columns)$$columns$$else$1$endif$,
   doc,
