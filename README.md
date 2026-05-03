@@ -33,9 +33,10 @@ You can use the Typst template also in Quarto.
 ---
 title: "My Document"
 subtitle: "A subtitle"
-author:
+authors:
   - name: Jane Doe
-    affiliation: University of Example
+    affiliations:
+      - name: University of Example
     email: jane@example.com
 date: today
 format:
