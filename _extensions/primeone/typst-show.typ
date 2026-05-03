@@ -11,7 +11,7 @@ $for(by-author)$
 $if(it.name.literal)$
   ( name: "$it.name.literal$",
     affiliation: [$for(it.affiliations)$$it.name$$sep$, $endfor$],
-    email: "$it.email$" ),
+    email: "$it.email$".replace("\@", "@") ),
 $endif$
 $endfor$
     ),
