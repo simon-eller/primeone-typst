@@ -412,9 +412,9 @@
   pagenumbering: "1",
   titlepage: false,
   toc: false,
-  toc_title: none,
-  toc_depth: none,
-  toc_indent: 1.5em,
+  toc-title: none,
+  toc-depth: none,
+  toc-indent: 1.5em,
   doc,
 ) = {
 
@@ -667,9 +667,9 @@
   if toc {
     block(above: 0em, below: 2em)[
       #outline(
-        title: toc_title,
-        depth: toc_depth,
-        indent: toc_indent
+        title: toc-title,
+        depth: toc-depth,
+        indent: toc-indent
       )
     ]
     pagebreak()

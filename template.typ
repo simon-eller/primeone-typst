@@ -12,8 +12,8 @@
   abstract-title: "Abstract",
   titlepage: true,
   toc: true,
-  toc_title: "Table of Contents",
-  toc_depth: 2,
+  toc-title: "Table of Contents",
+  toc-depth: 2,
 )
 
 = Typography

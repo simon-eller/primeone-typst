@@ -70,12 +70,12 @@ $if(toc)$
   toc: $toc$,
 $endif$
 $if(toc-title)$
-  toc_title: [$toc-title$],
+  toc-title: [$toc-title$],
 $endif$
 $if(toc-indent)$
-  toc_indent: $toc-indent$,
+  toc-indent: $toc-indent$,
 $endif$
-  toc_depth: $toc-depth$,
+  toc-depth: $toc-depth$,
   cols: $if(columns)$$columns$$else$1$endif$,
   doc,
 )
