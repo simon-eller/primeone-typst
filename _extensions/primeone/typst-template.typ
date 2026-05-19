@@ -59,13 +59,6 @@
   primary-bg:       rgb("#fdf2f8"),
 )
 
-// Set active theme
-#let _active-theme = theme-lara-cyan
-#let pr-primary       = _active-theme.primary
-#let pr-primary-dark  = _active-theme.primary-dark
-#let pr-primary-light = _active-theme.primary-light
-#let pr-primary-bg    = _active-theme.primary-bg
-
 // Surface colors
 #let pr-surface-a   = rgb("#ffffff")
 #let pr-surface-b   = rgb("#f9fafb")
@@ -336,26 +329,11 @@
   )
 }
 
-// Override codeblock layout used by Quarto
-#let Skylighting(lines) = block(
-  width: 100%,
-  fill: pr-surface-b,
-  stroke: 0.75pt + pr-border,
-  radius: 7.5pt,
-  clip: true,
-  inset: (x: 1em, y: 1em),
-)[
-  #set text(fill: pr-text, font: "Liberation Mono", size: 1em)
-  #for line in lines {
-    line
-    linebreak()
-  }
-]
-
 // Checkbox component
-#let checkbox(label: "", checked: false, disabled: false) = {
-  let box-fill   = if checked { pr-primary }    else { pr-surface-a }
-  let box-stroke = if checked { pr-primary }    else { pr-surface-300 }
+#let checkbox(label: "", checked: false, disabled: false, theme: theme-lara-cyan) = {
+  let primary    = theme.primary
+  let box-fill   = if checked { primary }       else { pr-surface-a }
+  let box-stroke = if checked { primary }       else { pr-surface-300 }
   let text-col   = if disabled { pr-surface-400 } else { pr-text }
   grid(
     align: horizon,
@@ -415,12 +393,17 @@
   toc-title: none,
   toc-depth: none,
   toc-indent: 1.5em,
+  theme: theme-lara-cyan,
   doc,
 ) = {
   let meta-authors = ()
   if authors != none {
     meta-authors = authors.map(a => a.name)
   }
+
+  // Resolve theme-derived color used by this template (title-page
+  // separator and author email accent).
+  let primary = theme.primary
 
   set document(
     title: title,
@@ -612,7 +595,7 @@
 
       block(
         width:  100%,
-        stroke: (bottom: 3pt + pr-primary),
+        stroke: (bottom: 3pt + primary),
         inset:  (x: 0pt, y: 3em),
         title-content,
       )
@@ -643,7 +626,7 @@
           #if a.at("email", default: none) != none and a.email != "" [
             #v(0.25em)
             #text(
-              fill: pr-primary,
+              fill: primary,
               size: 1em
             )[#a.email]
           ]
