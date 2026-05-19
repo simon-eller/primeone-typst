@@ -93,6 +93,12 @@
 #let pr-neutral-bg     = rgb("#f2f2f2")
 #let pr-neutral-text   = rgb("#8394ae")
 
+// Spacing scale
+#let pr-space-xs = 0.5em
+#let pr-space-sm = 0.75em
+#let pr-space-md = 1em
+#let pr-space-lg = 2em
+
 // Set theme state
 #let theme-state = state("primeone-typst:theme", theme-lara-cyan)
 
@@ -117,7 +123,7 @@
   let colors = badge-colors.at(severity, default: badge-colors.info)
   box(
     fill: colors.bg,
-    inset: (x: 0.5em),
+    inset: (x: pr-space-xs),
     outset: (y: 0.25em),
     radius: 7.5pt,
   )[
@@ -146,13 +152,11 @@
     }
 
     #block(
-      inset: (x: 1em, y: 1em),
+      inset: pr-space-md,
       width: 100%
     )[
       #if title != none {
-        block(
-          below: 1em
-        )[
+        block(below: if subtitle != none { pr-space-xs } else { pr-space-md })[
           #text(
             fill: pr-surface-700,
             size: 1.5em,
@@ -161,16 +165,12 @@
         ]
       }
       #if subtitle != none {
-        block()[
+        block(below: pr-space-md)[
           #text(
             fill: pr-text-secondary,
             size: 1em
           )[#subtitle]
         ]
-      }
-
-      #if title != none or subtitle != none {
-        v(1em)
       }
 
       #block()[
@@ -185,7 +185,7 @@
       block(
         above: 0pt,
         fill: pr-surface-b,
-        inset: (x: 1em, y: 1em),
+        inset: pr-space-md,
         stroke: (top: 0.75pt + pr-border),
         width: width
       )[
@@ -208,7 +208,7 @@
       block(
         below: 0pt,
         fill: pr-surface-b,
-        inset: (x: 1em, y: 1em),
+        inset: pr-space-md,
         stroke: (bottom: 0.75pt + pr-border),
         width: 100%
       )[
@@ -221,7 +221,7 @@
     }
 
     #block(
-      inset: (x: 1em, y: 1em),
+      inset: pr-space-md,
       width: 100%
     )[#body]
   ]
@@ -255,7 +255,7 @@
   let (bg, col, icon) = _msg-style(severity)
   block(
     fill: bg,
-    inset: (x: 0.75em, y: 0.75em),
+    inset: pr-space-sm,
     radius: 7.5pt,
   )[
     #text(
@@ -265,7 +265,7 @@
     )[
       #grid(
         columns: (auto, 1fr),
-        column-gutter: 0.5em,
+        column-gutter: pr-space-xs,
         align: left + horizon,
         text(
           fill: col,
@@ -286,7 +286,7 @@
   let content = {
     if title != none {
       block(
-        below: 0.875em,
+        below: pr-space-sm,
         text(
           fill: col,
           size: 1.25em,
@@ -312,12 +312,12 @@
       left: 7.5pt,
       block(
         fill: bg,
-        inset: (x: 0.75em, y: 0.75em),
+        inset: pr-space-sm,
         radius: (right: 7.5pt),
         width: 100%,
         grid(
           columns: (auto, 1fr),
-          column-gutter: 0.5em,
+          column-gutter: pr-space-xs,
           align: top,
           text(
             font: "Material Symbols Rounded Filled",
@@ -453,7 +453,7 @@
   set par(
     justify: false,
     leading: 0.65em,
-    spacing: 1em
+    spacing: pr-space-md,
   )
 
   set text(
@@ -465,7 +465,11 @@
   )
   set heading(numbering: sectionnumbering)
 
-  show heading.where(level: 1): it => block(above: 2em, below: 1em)[
+  show heading.where(level: 1): set block(above: pr-space-lg, below: pr-space-md)
+  show heading.where(level: 2): set block(above: pr-space-lg, below: pr-space-sm)
+  show heading.where(level: 3): set block(above: pr-space-md, below: pr-space-sm)
+
+  show heading.where(level: 1): it => block[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -474,7 +478,7 @@
     )[#it.body]
   ]
 
-  show heading.where(level: 2): it => block(above: 1.5em, below: 0.875em)[
+  show heading.where(level: 2): it => block[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -483,7 +487,7 @@
     )[#it.body]
   ]
 
-  show heading.where(level: 3): it => block(above: 1.25em, below: 0.75em)[
+  show heading.where(level: 3): it => block[
     #text(
       font:   (heading-family, "Liberation Sans"),
       weight: heading-weight,
@@ -495,9 +499,12 @@
   show line: _ => block(
     width: 100%,
     height: 0.75pt,
-    fill: pr-border
+    fill: pr-border,
+    above: pr-space-md,
+    below: pr-space-md,
   )
 
+  show table: set block(above: pr-space-md, below: pr-space-md)
   show table: it => {
     show grid: set block(above: 0pt, below: 0pt)
     let col-count = it.columns.len()
@@ -525,7 +532,7 @@
         columns: col-fracs,
         ..header-cells.map(c => block(
           fill: pr-surface-b,
-          inset: (x: 1em, y: 1em),
+          inset: pr-space-md,
           stroke: (bottom: 0.75pt + pr-border),
           width: 100%,
         )[
@@ -543,7 +550,7 @@
           columns: col-fracs,
           ..row.map(c => block(
             fill: row-bg,
-            inset: (x: 1em, y: 0.5em),
+            inset: (x: pr-space-md, y: pr-space-xs),
             stroke: (bottom: if i < rows.len() - 1 { 0.75pt + pr-border } else { none }),
             width: 100%,
           )[
@@ -568,7 +575,9 @@
     stroke: 0.75pt + pr-border,
     radius: 7.5pt,
     clip: true,
-    inset: (x: 1em, y: 1em),
+    inset: pr-space-md,
+    above: pr-space-md,
+    below: pr-space-md,
   )[
     #text(
       fill: pr-text,
@@ -577,7 +586,7 @@
     )[#it]
   ]
 
-  // Inline Codeblock
+  // Inline raw
   show raw.where(block: false): set text(font: "Liberation Mono")
 
   // Titlepage
@@ -615,7 +624,7 @@
         inset:  (x: 0pt, y: 3em),
         title-content,
       )
-      v(2em)
+      v(pr-space-lg)
     }
 
     // Authors
@@ -648,7 +657,7 @@
           ]
         ])
       )
-      v(2em)
+      v(pr-space-lg)
     }
 
     // Date
@@ -668,7 +677,7 @@
           size: 1.25em,
           weight: "semibold"
         )[#abstract-title]
-        #v(0.5em)
+        #v(pr-space-xs)
         #text(
           fill: pr-text-secondary,
           size: 1em
@@ -681,7 +690,7 @@
 
   // Table of contents
   if toc {
-    block(above: 0em, below: 2em)[
+    block(above: 0em, below: pr-space-lg)[
       #outline(
         title: toc-title,
         depth: toc-depth,
