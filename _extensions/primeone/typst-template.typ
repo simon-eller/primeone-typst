@@ -529,7 +529,7 @@
 
   // Outer rounded container around the table.
   show table: it => block(
-    width: 100%,
+    width: auto,
     fill: pr-surface-a,
     stroke: 0.75pt + pr-border,
     radius: 7.5pt,
