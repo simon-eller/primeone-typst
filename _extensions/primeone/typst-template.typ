@@ -505,68 +505,44 @@
   )
 
   show table: set block(above: pr-space-md, below: pr-space-md)
-  show table: it => {
-    show grid: set block(above: 0pt, below: 0pt)
-    let col-count = it.columns.len()
-    let cells = it.children.filter(c => c.func() == table.cell)
-    let header-cells = cells.slice(0, col-count)
-    let body-cells = cells.slice(col-count)
-    let col-fracs = (1fr,) * col-count
+  show table: set table(
+    inset: (
+      x: pr-space-md,
+      y: pr-space-xs
+    ),
+    stroke: (_, y) => if y > 0 { (top: 0.75pt + pr-border) },
+    fill: (_, y) => {
+      if y == 0 { pr-surface-b }                       // Header row
+      else if calc.rem(y, 2) == 0 { pr-surface-b }     // Even body rows
+      else { pr-surface-a }                            // Odd body rows
+    },
+  )
 
-    let rows = ()
-    let i = 0
-    while i < body-cells.len() {
-      rows.push(body-cells.slice(i, calc.min(i + col-count, body-cells.len())))
-      i = i + col-count
-    }
+  // Header row
+  show table.cell.where(y: 0): set text(
+    fill: pr-surface-700,
+    weight: "medium",
+  )
+  show table.cell.where(y: 0): set table.cell(
+    inset: (x: pr-space-md, y: pr-space-md),
+  )
 
-    block(
-      width: 100%,
-      fill: pr-surface-a,
-      stroke: 0.75pt + pr-border,
-      radius: 7.5pt,
-      clip: true,
-    )[
-      // Header
-      #grid(
-        columns: col-fracs,
-        ..header-cells.map(c => block(
-          fill: pr-surface-b,
-          inset: pr-space-md,
-          stroke: (bottom: 0.75pt + pr-border),
-          width: 100%,
-        )[
-          #text(
-            fill: pr-surface-700,
-            size: 1em,
-            weight: "semibold"
-          )[#c.body]
-        ])
-      )
-      // Body
-      #for (i, row) in rows.enumerate() {
-        let row-bg = if calc.rem(i, 2) == 1 { pr-surface-b } else { pr-surface-a }
-        grid(
-          columns: col-fracs,
-          ..row.map(c => block(
-            fill: row-bg,
-            inset: (x: pr-space-md, y: pr-space-xs),
-            stroke: (bottom: if i < rows.len() - 1 { 0.75pt + pr-border } else { none }),
-            width: 100%,
-          )[
-            #text(fill: pr-text, size: 1em)[#c.body]
-          ])
-        )
-      }
-    ]
-  }
+  // Outer rounded container around the table.
+  show table: it => block(
+    width: 100%,
+    fill: pr-surface-a,
+    stroke: 0.75pt + pr-border,
+    radius: 7.5pt,
+    clip: true,
+    inset: 0pt,
+  )[#it]
 
   // Codeblock
   // Quarto specific style changes
   show raw.where(block: true): set block(
     fill: none,
     inset: 0pt,
-    radius: 0pt
+    radius: 0pt,
   )
 
   show raw.where(block: true): it => block(
