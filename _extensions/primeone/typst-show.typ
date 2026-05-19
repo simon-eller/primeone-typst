@@ -36,7 +36,7 @@ $if(papersize)$
   paper: "$papersize$",
 $endif$
 $if(mainfont)$
-  font: ("$mainfont$",),
+  font: "$mainfont$",
 $elseif(brand.typography.base.family)$
   font: $brand.typography.base.family$,
 $endif$
@@ -86,6 +86,9 @@ $if(subtitle-size)$
 $endif$
 $if(heading-size)$
   heading-size: $heading-size$,
+$endif$
+$if(theme)$
+  theme: $theme$,
 $endif$
   toc-depth: $toc-depth$,
   cols: $if(columns)$$columns$$else$1$endif$,
