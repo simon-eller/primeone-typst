@@ -554,6 +554,13 @@
   }
 
   // Codeblock
+  // Quarto specific style changes
+  show raw.where(block: true): set block(
+    fill: none,
+    inset: 0pt,
+    radius: 0pt
+  )
+
   show raw.where(block: true): it => block(
     width: 100%,
     fill: pr-surface-b,
