@@ -113,11 +113,12 @@
 )
 
 // Badge component
-#let badge(label, severity: "info", size: 0.875em) = {
+#let badge(label, severity: "info", size: 1em) = {
   let colors = badge-colors.at(severity, default: badge-colors.info)
   box(
     fill: colors.bg,
-    inset: (x: 0.5em, y: 0.5em),
+    inset: (x: 0.5em),
+    outset: (y: 0.25em),
     radius: 7.5pt,
   )[
     #text(
@@ -285,10 +286,10 @@
   let content = {
     if title != none {
       block(
-        below: 0.5em,
+        below: 0.875em,
         text(
           fill: col,
-          size: 1em,
+          size: 1.25em,
           weight: "semibold",
           title
         )
@@ -297,7 +298,7 @@
 
     text(
       fill: col,
-      size: 0.875em,
+      size: 1em,
       body
     )
   }
