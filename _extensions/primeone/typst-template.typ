@@ -93,6 +93,9 @@
 #let pr-neutral-bg     = rgb("#f2f2f2")
 #let pr-neutral-text   = rgb("#8394ae")
 
+// Set theme state
+#let theme-state = state("primeone-typst:theme", theme-lara-cyan)
+
 // Icons
 #let gs(name) = text(font: "Material Symbols Rounded Filled", name)
 #let icon-info = gs("\u{e88e}")
@@ -329,9 +332,10 @@
   )
 }
 
-// Checkbox component
-#let checkbox(label: "", checked: false, disabled: false, theme: theme-lara-cyan) = {
-  let primary    = theme.primary
+// Checkbox component.
+#let checkbox(label: "", checked: false, disabled: false, theme: none) = context {
+  let active = if theme == none { theme-state.get() } else { theme }
+  let primary    = active.primary
   let box-fill   = if checked { primary }       else { pr-surface-a }
   let box-stroke = if checked { primary }       else { pr-surface-300 }
   let text-col   = if disabled { pr-surface-400 } else { pr-text }
@@ -404,6 +408,10 @@
   // Resolve theme-derived color used by this template (title-page
   // separator and author email accent).
   let primary = theme.primary
+
+  // Publish the active theme so themed components (e.g. checkbox) can
+  // read it via theme-state.get() without receiving it as an argument.
+  theme-state.update(theme)
 
   set document(
     title: title,
